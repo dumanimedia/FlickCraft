@@ -1,3 +1,7 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { useRef, type FormEvent } from "react";
 
 export function APITester() {
@@ -25,38 +29,45 @@ export function APITester() {
     <div className="mt-8 mx-auto w-full max-w-2xl text-left flex flex-col gap-4">
       <form
         onSubmit={testEndpoint}
-        className="flex items-center gap-2 bg-[#1a1a1a] p-3 rounded-xl font-mono border-2 border-[#fbf0df] transition-colors duration-300 focus-within:border-[#f3d5a3] w-full"
+        className="flex items-center gap-2 bg-card p-3 rounded-xl font-mono border border-input w-full"
       >
-        <select
-          name="method"
-          className="bg-[#fbf0df] text-[#1a1a1a] py-1.5 px-3 rounded-lg font-bold text-sm min-w-[0px] appearance-none cursor-pointer hover:bg-[#f3d5a3] transition-colors duration-100"
-        >
-          <option value="GET" className="py-1">
-            GET
-          </option>
-          <option value="PUT" className="py-1">
-            PUT
-          </option>
-        </select>
-        <input
+        <Select name="method" defaultValue="GET">
+          <SelectTrigger className="w-[100px]">
+            <SelectValue placeholder="Method" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="GET">GET</SelectItem>
+            <SelectItem value="PUT">PUT</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Input
           type="text"
           name="endpoint"
           defaultValue="/api/hello"
-          className="w-full flex-1 bg-transparent border-0 text-[#fbf0df] font-mono text-base py-1.5 px-2 outline-none focus:text-white placeholder-[#fbf0df]/40"
+          className={cn(
+            "flex-1 font-mono",
+            "bg-transparent border-0 shadow-none",
+            "focus-visible:ring-0 focus-visible:ring-offset-0",
+          )}
           placeholder="/api/hello"
         />
-        <button
-          type="submit"
-          className="bg-[#fbf0df] text-[#1a1a1a] border-0 px-5 py-1.5 rounded-lg font-bold transition-all duration-100 hover:bg-[#f3d5a3] hover:-translate-y-px cursor-pointer whitespace-nowrap"
-        >
+
+        <Button type="submit" variant="secondary">
           Send
-        </button>
+        </Button>
       </form>
+
       <textarea
         ref={responseInputRef}
         readOnly
         placeholder="Response will appear here..."
-        className="w-full min-h-[140px] bg-[#1a1a1a] border-2 border-[#fbf0df] rounded-xl p-3 text-[#fbf0df] font-mono resize-y focus:border-[#f3d5a3] placeholder-[#fbf0df]/40"
+        className={cn(
+          "w-full min-h-[140px] bg-card",
+          "border border-input rounded-xl p-3",
+          "font-mono resize-y",
+          "placeholder:text-muted-foreground",
+        )}
       />
     </div>
   );

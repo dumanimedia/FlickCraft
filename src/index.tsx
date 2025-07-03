@@ -1,10 +1,9 @@
 import { serve } from "bun";
 import index from "./index.html";
 
-const PORT = process.env.PORT || 3000;
-
 const server = serve({
   routes: {
+    // Serve index.html for all unmatched routes.
     "/*": index,
 
     "/api/hello": {
@@ -30,10 +29,11 @@ const server = serve({
     },
   },
 
-  port: Number(PORT),
-
   development: process.env.NODE_ENV !== "production" && {
+    // Enable browser hot reloading in development
     hmr: true,
+
+    // Echo console logs from the browser to the server
     console: true,
   },
 });
