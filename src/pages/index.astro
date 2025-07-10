@@ -1,24 +1,7 @@
 ---
-import '../styles/global.css';
-// Component Imports
-import {Button} from "@/components/ui/button";
-
-const res = await fetch(`${Astro.site}/api/movies`);
-const data = await res.json();
-
-console.log(data);
+import Layout from "@/layouts/layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
-
-	<body>
-		<Button>Hello World</Button>
-	</body>
-</html>
+<Layout content={{ title: "Home" }}>
+	 <p>Welcome to the homepage!</p>
+</Layout>
