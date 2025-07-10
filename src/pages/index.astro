@@ -1,16 +1,18 @@
 ---
-import Layout from "@/layouts/layout.astro";
+import Layout from "../layouts/main.astro";
 
-import { getLocale } from "astro-i18n-aut";
-
-import { useTranslations } from "@/lib/i18n";
-
-const locale = getLocale(Astro.url);
-const { t } = await useTranslations(locale);
+import Header from "@/components/header";
+import HeroSection from "@/components/hero-section";
+import MovieCarousel from "@/components/movie-carousel";
 ---
 
-<Layout
-  content={{ title: t("home.title"), description: t("home.description") }}
->
-  <p>{t("home.title")}: {locale}</p>
+<Layout title="Filmagnet - Movie Streaming Platform">
+  <main class="bg-black min-h-screen">
+    <Header client:load />
+    <HeroSection client:load />
+
+    <section class="relative z-10 -mt-32 pb-20">
+      <MovieCarousel client:load />
+    </section>
+  </main>
 </Layout>
