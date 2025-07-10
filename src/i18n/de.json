@@ -1,0 +1,14 @@
+{
+  "home": {
+    "title": "Willkommen auf der Startseite!",
+    "description": "Dies ist die Startseite unserer Website."
+  },
+  "about": {
+    "title": "Über uns",
+    "description": "Lerne mehr über uns."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "description": "Kontaktiere uns."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "home": {
+    "title": "홈페이지에 오신 것을 환영합니다!",
+    "description": "이것은 우리 사이트의 홈페이지입니다."
+  },
+  "about": {
+    "title": "우리에 대해",
+    "description": "우리에 대해 알아보기"
+  },
+  "contact": {
+    "title": "联系",
+    "description": "联系我们"
+  }
+}

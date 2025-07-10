@@ -1,16 +1,13 @@
 ---
 import Layout from "@/layouts/layout.astro";
-
 import { getLocale } from "astro-i18n-aut";
-
 import { useTranslations } from "@/lib/i18n";
 
 const locale = getLocale(Astro.url);
 const { t } = await useTranslations(locale);
 ---
 
-<Layout
-  content={{ title: t("home.title"), description: t("home.description") }}
->
-  <p>{t("home.title")}: {locale}</p>
+<Layout content={{ title: t("about.title") }}>
+  <h1>{t("about.title")}</h1>
+  <p>{t("about.description")}</p>
 </Layout>
