@@ -2,17 +2,10 @@
 import Layout from "../layouts/main.astro";
 
 import Header from "@/components/header";
-import HeroSection from "@/components/hero-section";
-import MovieCarousel from "@/components/movie-carousel";
 ---
 
-<Layout title="Filmagnet - Movie Streaming Platform">
-  <main class="bg-black min-h-screen">
+<Layout title="FlickCraft - Movie Streaming Platform">
+  <main>
     <Header client:load />
-    <HeroSection client:load />
-
-    <section class="relative z-10 -mt-32 pb-20">
-      <MovieCarousel client:load />
-    </section>
   </main>
 </Layout>
