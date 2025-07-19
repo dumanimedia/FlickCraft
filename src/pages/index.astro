@@ -1,7 +1,7 @@
 ---
-import Header from "@/components/header";
 import Layout from "../layouts/main.astro";
 import { Badge } from "@/components/ui/badge";
+import Header from "@/components/header.astro";
 import Footer from "@/components/footer.astro";
 import { Button } from "@/components/ui/button";
 
@@ -9,7 +9,7 @@ import { Play } from "lucide-react";
 ---
 
 <Layout title="FlickCraft - Movie Streaming Platform">
-  <Header client:load />
+  <Header />
   <main>
     <section
       class="hero-section relative flex items-center justify-start min-h-screen bg-cover bg-center bg-no-repeat"
