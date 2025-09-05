@@ -3,16 +3,16 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanstackDevtools } from '@tanstack/react-devtools'
-
-import Header from '../components/Header'
-
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
-
-import appCss from '../styles.css?url'
-
 import type { QueryClient } from '@tanstack/react-query'
+import { TanstackDevtools } from '@tanstack/react-devtools'
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+
+import Header from '@/components/header'
+import Footer from '@/components/footer'
+
+import TanStackQueryDevtools from '@/integrations/tanstack-query/devtools'
+
+import appCss from '@/styles.css?url'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -29,7 +29,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'FlickCraft - Craft Your Watchlist. Discover the Best.',
+      },
+      {
+        name: 'description',
+        content:
+          'Discover the best movies and TV shows tailored to your taste with personalized recommendations, trending content, and reviews.',
       },
     ],
     links: [
@@ -49,9 +54,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="dark">
         <Header />
         {children}
+        <Footer />
         <TanstackDevtools
           config={{
             position: 'bottom-left',
