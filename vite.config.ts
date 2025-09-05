@@ -5,9 +5,6 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 
 const config = defineConfig({
-  server: {
-    port: 3049,
-  },
   plugins: [
     viteTsConfigPaths({
       projects: ["./tsconfig.json"],

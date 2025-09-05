@@ -1,15 +1,16 @@
 {
-  "name": ".",
+  "name": "flickcraft",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "vite dev --port 3049",
     "start": "node .output/server/index.mjs",
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.2.2",
     "@tanstack/react-router": "^1.130.2",
