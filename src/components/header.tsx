@@ -130,13 +130,13 @@ export default function Header() {
                 HOME
               </Link>
               <Link
-                to="/movie"
+                to="/"
                 className="text-sm font-medium text-white hover:text-primary transition-colors py-2"
               >
                 MOVIE
               </Link>
               <Link
-                to="/tv"
+                to="/"
                 className="text-sm font-medium text-white hover:text-primary transition-colors py-2"
               >
                 TV SHOWS
