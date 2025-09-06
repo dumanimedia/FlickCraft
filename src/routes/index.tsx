@@ -5,5 +5,5 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
-  return <main>Hello World</main>
+  return <main className="min-h-screen">Hello World</main>
 }
