@@ -92,9 +92,11 @@ export default function Header() {
             </DropdownMenu>
           </div>
 
-          <Button size="sm" className="border-primary">
-            SIGN IN
-          </Button>
+          <Link href="/sign-in">
+            <Button size="sm" className="border-primary">
+              SIGN IN
+            </Button>
+          </Link>
 
           <Button
             variant="ghost"
