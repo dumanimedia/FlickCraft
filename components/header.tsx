@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import UserButtons from "./user-buttons";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -92,11 +93,12 @@ export default function Header() {
             </DropdownMenu>
           </div>
 
-          <Link href="/sign-in">
+          <UserButtons />
+          {/* <Link href="/sign-in">
             <Button size="sm" className="border-primary">
               SIGN IN
             </Button>
-          </Link>
+          </Link> */}
 
           <Button
             variant="ghost"
