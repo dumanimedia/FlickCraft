@@ -1,27 +1,28 @@
-import { useState } from 'react'
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { ChevronDown, Globe, Menu, Search, X } from "lucide-react";
+
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import { Link } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
-import { Search, Menu, X, ChevronDown, Globe } from 'lucide-react'
-
-import LogoImg from '@/logo.svg'
+} from "./ui/dropdown-menu";
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
-        <Link to="/" className="flex items-center space-x-2">
+      <div className="container flex h-16 items-center justify-between px-4">
+        <Link href="/" className="flex items-center space-x-2">
           <img
-            src={LogoImg}
+            src="/logo.svg"
             alt="FlickCraft Logo"
             className="w-36 sm:w-48 h-auto"
           />
@@ -29,32 +30,32 @@ export default function Header() {
 
         <nav className="hidden lg:flex items-center space-x-8">
           <Link
-            to="/"
-            className="text-sm font-medium text-white hover:text-primary transition-colors"
+            href="/"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
           >
             HOME
           </Link>
           <Link
-            to="/"
-            className="text-sm font-medium text-white hover:text-primary transition-colors"
+            href="/"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
           >
             MOVIE
           </Link>
           <Link
-            to="/"
-            className="text-sm font-medium text-white hover:text-primary transition-colors"
+            href="/"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
           >
             TV SHOWS
           </Link>
           <Link
-            to="/"
-            className="text-sm font-medium text-white hover:text-primary transition-colors"
+            href="/"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
           >
             PEOPLE
           </Link>
           <Link
-            to="/"
-            className="text-sm font-medium text-white hover:text-primary transition-colors"
+            href="/"
+            className="text-sm font-medium text-foreground hover:text-primary transition-colors"
           >
             PREMIUM
           </Link>
@@ -64,7 +65,7 @@ export default function Header() {
           <Button
             variant="link"
             size="sm"
-            className="text-white hover:text-primary hidden sm:inline-flex"
+            className="text-foreground hover:text-primary hidden sm:inline-flex"
           >
             <Search className="w-5 h-5" />
           </Button>
@@ -75,7 +76,7 @@ export default function Header() {
                 <Button
                   variant="link"
                   size="sm"
-                  className="text-white hover:text-primary flex items-center space-x-1"
+                  className="text-foreground hover:text-primary flex items-center space-x-1"
                 >
                   <Globe className="w-4 h-4" />
                   <span className="text-sm">EN</span>
@@ -98,7 +99,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden text-white"
+            className="lg:hidden text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
@@ -124,32 +125,32 @@ export default function Header() {
             </form>
             <nav className="flex flex-col space-y-2">
               <Link
-                to="/"
-                className="text-sm font-medium text-white hover:text-primary transition-colors py-2"
+                href="/"
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
               >
                 HOME
               </Link>
               <Link
-                to="/"
-                className="text-sm font-medium text-white hover:text-primary transition-colors py-2"
+                href="/"
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
               >
                 MOVIE
               </Link>
               <Link
-                to="/"
-                className="text-sm font-medium text-white hover:text-primary transition-colors py-2"
+                href="/"
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
               >
                 TV SHOWS
               </Link>
               <Link
-                to="/"
-                className="text-sm font-medium text-white hover:text-primary transition-colors py-2"
+                href="/"
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
               >
                 PEOPLE
               </Link>
               <Link
-                to="/"
-                className="text-sm font-medium text-white hover:text-primary transition-colors py-2"
+                href="/"
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors py-2"
               >
                 PREMIUM
               </Link>
@@ -157,7 +158,7 @@ export default function Header() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full border-primary text-primary hover:bg-primary hover:text-white"
+                  className="w-full border-primary text-primary hover:bg-primary hover:text-foreground"
                 >
                   SIGN IN
                 </Button>
@@ -167,5 +168,5 @@ export default function Header() {
         </div>
       )}
     </header>
-  )
+  );
 }

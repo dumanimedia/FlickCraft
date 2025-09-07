@@ -1,17 +1,15 @@
-import { Link } from '@tanstack/react-router'
-
-import LogoImg from '@/logo.svg'
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-card border-t border-border mt-16">
-      <div className="max-w-7xl mx-auto px-4 py-12">
+    <footer className="bg-background border-t border-border mt-16">
+      <div className="container px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="col-span-1 md:col-span-2">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2">
               <img
-                src={LogoImg}
+                src="/logo.svg"
                 alt="FlickCraft Logo"
                 className="w-36 sm:w-48 h-auto"
               />
@@ -30,7 +28,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  to="/movie"
+                  href="/movie"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Movies
@@ -38,7 +36,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/tv"
+                  href="/tv"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   TV Shows
@@ -46,7 +44,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/"
+                  href="/"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Search
@@ -63,7 +61,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  to="/"
+                  href="/"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Dashboard
@@ -71,7 +69,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/"
+                  href="/"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Sign In
@@ -79,7 +77,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/"
+                  href="/"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Sign Up
@@ -91,11 +89,19 @@ export default function Footer() {
 
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-xs text-muted-foreground">
-            © 2024 FlickCraft. All rights reserved. Built with Next.js and
-            powered by TMDB.
+            © 2024 FlickCraft. All rights reserved to{" "}
+            <a
+              className="text-primary hover:text-primary/90"
+              href="https://dumanimedia.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Dumani Media
+            </a>
+            .
           </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
