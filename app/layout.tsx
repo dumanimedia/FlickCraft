@@ -105,7 +105,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased dark`}>
-        <NextTopLoader color="#E41E2D" />
+        <NextTopLoader color="#E41E2D" showSpinner={false} />
         <QueryProvider>
           <Header /> {children} <Footer />
         </QueryProvider>
