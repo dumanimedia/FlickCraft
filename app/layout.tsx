@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import NextTopLoader from "nextjs-toploader";
 
 import "@/styles/globals.css";
 import Header from "@/components/header";
@@ -104,6 +105,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased dark`}>
+        <NextTopLoader color="#E41E2D" />
         <QueryProvider>
           <Header /> {children} <Footer />
         </QueryProvider>

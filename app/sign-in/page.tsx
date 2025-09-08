@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -34,20 +33,10 @@ export default function SignInPage() {
     );
   };
   return (
-    <main className="grid min-h-svh lg:grid-cols-2">
-      <div className="relative hidden lg:block">
-        <Image
-          src="/placeholder.svg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-          loading="lazy"
-          width={512}
-          height={512}
-        />
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-3xl">
+        <SignInForm onSubmit={handleSubmit} isPending={isPending} />
       </div>
-      <div className="flex flex-1 items-center justify-center px-4">
-        <SignInForm onSubmit={handleSubmit} />
-      </div>
-    </main>
+    </div>
   );
 }

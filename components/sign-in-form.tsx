@@ -1,5 +1,11 @@
 "use client";
 
+import z from "zod";
+import Link from "next/link";
+import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Form,
   FormControl,
@@ -8,21 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Github } from "lucide-react";
-import { useForm } from "react-hook-form";
-import z from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -35,7 +29,7 @@ export type SignInFormValues = z.infer<typeof formSchema>;
 
 export type SignInFormProps = {
   onSubmit: (values: SignInFormValues) => void;
-  onGitHubSignIn?: () => void;
+  onGoogleSignIn?: () => void;
   isPending?: boolean;
   errorMessage?: string | null;
   redirectUrl?: string | null;
@@ -43,7 +37,7 @@ export type SignInFormProps = {
 
 export function SignInForm({
   onSubmit,
-  onGitHubSignIn,
+  onGoogleSignIn: onGoogleSignIn,
   isPending,
   redirectUrl,
 }: SignInFormProps) {
@@ -56,86 +50,178 @@ export function SignInForm({
   });
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Sign in</CardTitle>
-        <CardDescription>Welcome back! Sign in to your account</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type="email" {...field} disabled={isPending} />
-                  </FormControl>
-                  <FormMessage className="min-h-[20px]" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} disabled={isPending} />
-                  </FormControl>
-                  <FormMessage className="min-h-[20px]" />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className={`w-full ${!onGitHubSignIn ? "mt-6" : ""}`}
-              disabled={isPending}
-            >
-              {isPending ? <Loader2 className="animate-spin" /> : "Continue"}
-            </Button>
-          </form>
-        </Form>
-        {onGitHubSignIn && (
-          <>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
+    <div className="flex flex-col gap-6">
+      <Card className="overflow-hidden p-0">
+        <CardContent className="grid p-0 md:grid-cols-2">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 md:p-8">
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col items-center text-center">
+                  <h1 className="text-2xl font-bold">Welcome back</h1>
+                  <p className="text-muted-foreground text-balance">
+                    Login to your FlickCraft account
+                  </p>
+                </div>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="grid gap-3">
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="m@example.com"
+                          required
+                          {...field}
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage className="min-h-[20px]" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      {/* <FormLabel>Password</FormLabel> */}
+                      <div className="flex items-center">
+                        <FormLabel>Password</FormLabel>
+                        <Link
+                          href="#"
+                          className="ml-auto text-sm underline-offset-2 hover:underline"
+                        >
+                          Forgot your password?
+                        </Link>
+                      </div>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="••••••••"
+                          required
+                          {...field}
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage className="min-h-[20px]" />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full" disabled={isPending}>
+                  {isPending && <Loader2 className="mr-2 animate-spin" />}
+                  {isPending ? "Signing in..." : "Sign in"}
+                </Button>
+                <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+                  <span className="bg-card text-muted-foreground relative z-10 px-2">
+                    Or continue with
+                  </span>
+                </div>
+                <div className="relative">
+                  <Button variant="outline" type="button" className="w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path
+                        d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span className="">Continue with Google</span>
+                    <span className="sr-only">Login with Google</span>
+                  </Button>
+                </div>
+                <div className="text-center text-sm">
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    className="underline underline-offset-4"
+                    href={
+                      redirectUrl
+                        ? `/sign-up?redirect_url=${encodeURIComponent(
+                            redirectUrl
+                          )}`
+                        : "/sign-up"
+                    }
+                  >
+                    Sign up
+                  </Link>
+                </div>
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">or</span>
-              </div>
-            </div>
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={onGitHubSignIn}
-              disabled={isPending}
-            >
-              <Github className="mr-2 h-4 w-4" />
-              Continue with GitHub
-            </Button>
-          </>
-        )}
-      </CardContent>
-      <CardFooter className="flex justify-center">
-        <span className="text-sm text-muted-foreground">
-          Don&apos;t have an account?{" "}
-          <Link
-            href={
-              redirectUrl
-                ? `/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`
-                : "/sign-up"
-            }
-            className="text-primary underline hover:opacity-80"
-          >
-            Sign up
-          </Link>
-        </span>
-      </CardFooter>
-    </Card>
+            </form>
+          </Form>
+          <div className="bg-muted relative hidden md:block">
+            <img
+              src="/placeholder.svg"
+              alt="Image"
+              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            />
+          </div>
+        </CardContent>
+      </Card>
+      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>.
+      </div>
+    </div>
   );
 }
+
+// <Card className="w-full max-w-md">
+//   <CardHeader>
+//     <CardTitle>Sign in</CardTitle>
+//     <CardDescription>Welcome back! Sign in to your account</CardDescription>
+//   </CardHeader>
+//   <CardContent className="space-y-6">
+//     <Form {...form}>
+//       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+//         <FormField
+//           control={form.control}
+//           name="email"
+//           render={({ field }) => (
+//             <FormItem>
+//               <FormLabel>Email</FormLabel>
+//               <FormControl>
+//                 <Input type="email" {...field} disabled={isPending} />
+//               </FormControl>
+//               <FormMessage className="min-h-[20px]" />
+//             </FormItem>
+//           )}
+//         />
+// <FormField
+//   control={form.control}
+//   name="password"
+//   render={({ field }) => (
+//     <FormItem>
+//       <FormLabel>Password</FormLabel>
+//       <FormControl>
+//         <Input type="password" {...field} disabled={isPending} />
+//       </FormControl>
+//       <FormMessage className="min-h-[20px]" />
+//     </FormItem>
+//   )}
+// />
+//         <Button
+//           type="submit"
+//           className={`w-full ${!onGitHubSignIn ? "mt-6" : ""}`}
+//           disabled={isPending}
+//         >
+//           {isPending ? <Loader2 className="animate-spin" /> : "Continue"}
+//         </Button>
+//       </form>
+//     </Form>
+//   </CardContent>
+//   <CardFooter className="flex justify-center">
+//     <span className="text-sm text-muted-foreground">
+//       Don&apos;t have an account?{" "}
+// <Link
+//   href={
+//     redirectUrl
+//       ? `/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`
+//       : "/sign-up"
+//   }
+//         className="text-primary underline hover:opacity-80"
+//       >
+//         Sign up
+//       </Link>
+//     </span>
+//   </CardFooter>
+// </Card>

@@ -35,20 +35,10 @@ export default function SignUpPage() {
     );
   };
   return (
-    <main className="grid min-h-svh lg:grid-cols-2">
-      <div className="flex flex-1 items-center justify-center px-4">
-        <SignUpForm onSubmit={handleSubmit} />
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-3xl">
+        <SignUpForm onSubmit={handleSubmit} isPending={isPending} />
       </div>
-      <div className="relative hidden lg:block">
-        <Image
-          src="/placeholder.svg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-          loading="lazy"
-          width={512}
-          height={512}
-        />
-      </div>
-    </main>
+    </div>
   );
 }
