@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { QueryProvider } from "@/lib/query-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -103,7 +104,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased dark`}>
-        <Header /> {children} <Footer />
+        <QueryProvider>
+          <Header /> {children} <Footer />
+        </QueryProvider>
       </body>
     </html>
   );
