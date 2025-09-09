@@ -28,8 +28,8 @@ export default function ItemDetailsContent({
     theDetails.media_type === "movie"
       ? theDetails.title
       : theDetails.media_type === "tv"
-      ? theDetails.name
-      : "";
+        ? theDetails.name
+        : "";
 
   console.log({ title });
 
@@ -38,6 +38,7 @@ export default function ItemDetailsContent({
       <h1 className="text-3xl font-bold">{title}</h1>
       <p className="mt-2 text-gray-600">{theDetails.overview}</p>
       {/* more media details here */}
+      <h3>This is a sample stuff written in nvim.</h3>
     </main>
   );
 }
