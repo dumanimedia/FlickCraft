@@ -108,7 +108,7 @@ export default function RootLayout({
       <body className={`antialiased dark`}>
         <NextTopLoader color="#E41E2D" showSpinner={false} />
         <QueryProvider>
-          <Header /> {children} <Footer /> <Toaster />
+          <Header /> {children} <Footer /> <Toaster position="top-right" />
         </QueryProvider>
       </body>
     </html>

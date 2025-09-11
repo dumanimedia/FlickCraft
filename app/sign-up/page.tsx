@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { authClient } from "@/lib/auth-client";
+import { signUp } from "@/lib/auth-client";
 import { SignUpForm, SignUpFormValues } from "@/components/sign-up-form";
 
 export default function SignUpPage() {
@@ -12,7 +12,7 @@ export default function SignUpPage() {
   const [isPending, setIsPending] = useState(false);
 
   const handleSubmit = (values: SignUpFormValues) => {
-    authClient.signUp.email(
+    signUp.email(
       {
         email: values.email,
         password: values.password,
@@ -27,9 +27,10 @@ export default function SignUpPage() {
         },
         onSuccess: () => {
           router.push("/dashboard");
+          toast.success(`Account created succesfully.`);
         },
         onError: ({ error }) => {
-          alert(`Sign up failed. ${error.message}.`);
+          toast.error(`Sign in failed. ${error.message}.`);
         },
       }
     );

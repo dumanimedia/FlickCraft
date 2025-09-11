@@ -1,9 +1,10 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { authClient } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
 import { SignInForm, SignInFormValues } from "@/components/sign-in-form";
 
 export default function SignInPage() {
@@ -11,7 +12,7 @@ export default function SignInPage() {
   const [isPending, setIsPending] = useState(false);
 
   const handleSubmit = (values: SignInFormValues) => {
-    authClient.signIn.email(
+    signIn.email(
       {
         email: values.email,
         password: values.password,
@@ -25,9 +26,10 @@ export default function SignInPage() {
         },
         onSuccess: () => {
           router.push("/dashboard");
+          toast.success(`Sign in succeeded.`);
         },
         onError: ({ error }) => {
-          alert(`Sign in failed. ${error.message}.`);
+          toast.error(`Sign in failed. ${error.message}.`);
         },
       }
     );

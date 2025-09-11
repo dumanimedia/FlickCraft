@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Clock, Heart, LogOut, Settings, User } from "lucide-react";
 
 import { Button } from "./ui/button";
-import { authClient } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth-client";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import {
   DropdownMenu,
@@ -20,7 +20,7 @@ export default function UserButtons() {
   const router = useRouter();
 
   const handleLogout = () => {
-    authClient.signOut({
+    signOut({
       fetchOptions: {
         onSuccess: () => {
           router.push("/");
@@ -30,7 +30,7 @@ export default function UserButtons() {
     router.push("/");
   };
 
-  const session = authClient.useSession();
+  const session = useSession();
 
   if (session.isPending) {
     return (
