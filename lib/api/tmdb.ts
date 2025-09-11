@@ -4,12 +4,22 @@ import {
   TMDBMovieDetails,
   TMDBTVShowDetails,
   TMDBCredits,
-  TMDBGenre,
   TMDBPaginatedResponse,
 } from "@/types/tmdb";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_API_KEY = process.env.TMDB_API_KEY!;
+
+// export async function fetchFromTMDB(endpoint: string, query: string = "") {
+//   const url = `${TMDB_BASE_URL}${endpoint}?api_key=${TMDB_API_KEY}&${query}`;
+//   const res = await fetch(url, { cache: "no-store" });
+
+//   if (!res.ok) {
+//     throw new Error(`TMDB API error: ${res.statusText}`);
+//   }
+
+//   return res.json();
+// }
 
 async function fetchFromTMDB<T>(endpoint: string): Promise<T> {
   const url = `${TMDB_BASE_URL}${endpoint}${
