@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 
-import "@/styles/globals.css";
+import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/lib/query-provider";
 
 export const metadata: Metadata = {
@@ -107,11 +108,9 @@ export default function RootLayout({
       <body className={`antialiased dark`}>
         <NextTopLoader color="#E41E2D" showSpinner={false} />
         <QueryProvider>
-          <Header /> {children} <Footer />
+          <Header /> {children} <Footer /> <Toaster />
         </QueryProvider>
       </body>
     </html>
   );
 }
-
-// https://medium.com/@thomasaugot/the-complete-guide-to-seo-optimization-in-next-js-15-1bdb118cffd7
