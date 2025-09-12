@@ -16,7 +16,7 @@ export default function MediaCard({
 
   const posterUrl = poster_path
     ? `https://image.tmdb.org/t/p/w342${poster_path}`
-    : "/abstract-movie-poster.png";
+    : "/placeholder.svg";
 
   return (
     <div className="w-40 flex-shrink-0 rounded overflow-hidden shadow-md cursor-pointer hover:scale-105 transition-transform">

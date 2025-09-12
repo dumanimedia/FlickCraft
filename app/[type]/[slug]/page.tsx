@@ -36,6 +36,7 @@ export default async function DetailsAndListsPage({
 
   const queryKey = [`${type}-${slug}`];
   const endpoint = `${BASE_URL}/api/tmdb/${type}/${slug}`;
+  const creditsEndpoint = `${BASE_URL}/api/tmdb/${type}/${slug}/credits`;
 
   console.log({ endpoint });
 
@@ -48,6 +49,17 @@ export default async function DetailsAndListsPage({
     },
   });
 
+  if (isDetail) {
+    void queryClient.prefetchQuery({
+      queryKey: ["media-cast", Number(slug)],
+      queryFn: async () => {
+        const response = await fetch(creditsEndpoint);
+
+        return response.json();
+      },
+    });
+  }
+
   if (isList) {
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
@@ -57,7 +69,12 @@ export default async function DetailsAndListsPage({
   }
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <MediaDetails queryKey={queryKey} endpoint={endpoint} />
+      <MediaDetails
+        creditsEndpoint={creditsEndpoint}
+        endpoint={endpoint}
+        queryKey={queryKey}
+        type={type}
+      />
     </HydrationBoundary>
   );
 }
