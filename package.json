@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "prisma generate && next dev --turbopack --port 3049",
-    "build": "prisma generate && next build --turbopack",
+    "build": "npm run prisma:push && next build --turbopack",
     "start": "next start --port 3049",
     "lint": "eslint",
     "prisma:init": "npx prisma init",
