@@ -5,8 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const BASE_URL =
-  process.env.VERCEL_URL || process.env.NEXT_PUBLIC_BASE_URL;
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
 export function getImageUrl(
