@@ -23,14 +23,19 @@ export async function GET(
   {
     params,
   }: {
-    // params is a Promise in newer Next versions — mark it as such
     params: Promise<{ type: string; slug: string }>;
   }
 ) {
-  // <- IMPORTANT: await params before accessing its properties
   const { type, slug } = await params;
 
-  if (!validTypes.includes(type as any)) {
+  const validTypes = ["movie", "tv"] as const;
+  type ValidType = (typeof validTypes)[number];
+
+  function isValidType(type: string): type is ValidType {
+    return validTypes.includes(type as ValidType);
+  }
+
+  if (!isValidType(type)) {
     return new NextResponse("Invalid type. Must be 'movie' or 'tv'", {
       status: 400,
     });
@@ -44,7 +49,7 @@ export async function GET(
     });
   }
 
-  const endpoint = `/${type}/${slug}/credits`;
+  const endpoint: string = `/${type}/${slug}/credits`;
 
   try {
     const data = await fetchFromTMDB(endpoint);

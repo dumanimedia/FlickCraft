@@ -7,7 +7,7 @@ export default function MediaCard({
 }) {
   const { poster_path, vote_average, media_type } = tmdbItem;
 
-  let title =
+  const title =
     media_type === "movie"
       ? tmdbItem.title
       : media_type === "tv"

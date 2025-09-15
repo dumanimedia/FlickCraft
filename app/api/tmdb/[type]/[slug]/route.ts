@@ -28,23 +28,26 @@ export async function GET(
   {
     params,
   }: {
-    // params is a Promise in newer Next versions — mark it as such
     params: Promise<{ type: string; slug: string }>;
   }
 ) {
-  // <- IMPORTANT: await params before accessing its properties
   const { type, slug } = await params;
 
-  if (!validTypes.includes(type as any)) {
+  const validTypes = ["movie", "tv"] as const;
+  type ValidType = (typeof validTypes)[number];
+
+  function isValidType(type: string): type is ValidType {
+    return validTypes.includes(type as ValidType);
+  }
+
+  if (!isValidType(type)) {
     return new NextResponse("Invalid type. Must be 'movie' or 'tv'", {
       status: 400,
     });
   }
 
-  // Check if it's a known list (e.g. popular, top_rated)
   const isList = validLists[type as (typeof validTypes)[number]].includes(slug);
 
-  // Check if it's a numeric ID (e.g. '550')
   const isDetail = /^\d+$/.test(slug);
 
   if (!isList && !isDetail) {
@@ -54,7 +57,7 @@ export async function GET(
     );
   }
 
-  const endpoint = `/${type}/${slug}`;
+  const endpoint: string = `/${type}/${slug}`;
 
   try {
     const data = await fetchFromTMDB(endpoint);

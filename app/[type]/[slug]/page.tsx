@@ -17,13 +17,18 @@ export default async function DetailsAndListsPage({
   const queryClient = getQueryClient();
 
   const validTypes = ["movie", "tv"] as const;
+  type ValidType = (typeof validTypes)[number];
+
+  function isValidType(type: string): type is ValidType {
+    return validTypes.includes(type as ValidType);
+  }
 
   const validLists: Record<(typeof validTypes)[number], string[]> = {
     movie: ["popular", "top_rated", "upcoming", "now_playing"],
     tv: ["popular", "top_rated", "airing_today", "on_the_air"],
   };
 
-  if (!validTypes.includes(type as any)) {
+  if (!isValidType(type)) {
     return notFound();
   }
 
@@ -34,9 +39,9 @@ export default async function DetailsAndListsPage({
     return notFound();
   }
 
-  const queryKey = [`${type}-${slug}`];
-  const endpoint = `${BASE_URL}/api/tmdb/${type}/${slug}`;
-  const creditsEndpoint = `${BASE_URL}/api/tmdb/${type}/${slug}/credits`;
+  const queryKey: string[] = [`${type}-${slug}`];
+  const endpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}`;
+  const creditsEndpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}/credits`;
 
   console.log({ endpoint });
 
