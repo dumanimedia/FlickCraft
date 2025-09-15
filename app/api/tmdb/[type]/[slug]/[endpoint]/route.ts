@@ -7,8 +7,6 @@ if (!TMDB_API_KEY) {
   throw new Error("Missing TMDB_API_KEY environment variable");
 }
 
-const validTypes = ["movie", "tv"] as const;
-
 async function fetchFromTMDB(endpoint: string) {
   const url = `${TMDB_BASE_URL}${endpoint}?api_key=${TMDB_API_KEY}`;
   const res = await fetch(url, { cache: "no-store" });
@@ -23,16 +21,34 @@ export async function GET(
   {
     params,
   }: {
-    params: Promise<{ type: string; slug: string }>;
+    params: Promise<{ endpoint: string; slug: string; type: string }>;
   }
 ) {
-  const { type, slug } = await params;
+  const { endpoint, slug, type } = await params;
 
   const validTypes = ["movie", "tv"] as const;
   type ValidType = (typeof validTypes)[number];
 
+  const validEndpoints = [
+    "reviews",
+    "similar",
+    "videos",
+    "credits",
+    "watch_providers",
+    "recommendations",
+    "images",
+    "keywords",
+    "external_ids",
+  ] as const;
+
+  type ValidEndpoint = (typeof validEndpoints)[number];
+
   function isValidType(type: string): type is ValidType {
     return validTypes.includes(type as ValidType);
+  }
+
+  function isValidEndpoint(endpoint: string): endpoint is ValidEndpoint {
+    return validEndpoints.includes(endpoint as ValidEndpoint);
   }
 
   if (!isValidType(type)) {
@@ -41,18 +57,21 @@ export async function GET(
     });
   }
 
-  const isDetail = /^\d+$/.test(slug);
-
-  if (!isDetail) {
-    return new NextResponse(`Invalid slug: '${slug}' is not a ID`, {
-      status: 400,
-    });
+  if (!isValidEndpoint(endpoint)) {
+    return new NextResponse(
+      `Invalid endpoint: '${endpoint}' is not a valid endpoint`,
+      {
+        status: 400,
+      }
+    );
   }
 
-  const endpoint: string = `/${type}/${slug}/credits`;
+  const endpointPath: string = `/${type}/${slug}/${
+    endpoint === "watch_providers" ? "watch/providers" : endpoint
+  }`;
 
   try {
-    const data = await fetchFromTMDB(endpoint);
+    const data = await fetchFromTMDB(endpointPath);
     return NextResponse.json(data);
   } catch (error) {
     console.error("TMDB fetch error:", error);

@@ -41,10 +41,17 @@ export default async function DetailsAndListsPage({
 
   const queryKey: (string | number)[] = [`${type}-${slug}`];
   const creditsQueryKey: (string | number)[] = ["media-cast", Number(slug)];
+  const reviewsQueryKey: (string | number)[] = ["media-reviews", Number(slug)];
+  const similarQueryKey: (string | number)[] = ["media-similar", Number(slug)];
+  const watchProvidersQueryKey: (string | number)[] = [
+    "media-watch",
+    Number(slug),
+  ];
   const endpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}`;
   const creditsEndpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}/credits`;
-
-  console.log({ endpoint });
+  const reviewsEndpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}/reviews`;
+  const similarEndpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}/similar`;
+  const watchProvidersEndpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}/watch_providers`;
 
   void queryClient.prefetchQuery({
     queryKey,
@@ -66,6 +73,33 @@ export default async function DetailsAndListsPage({
     });
   }
 
+  void queryClient.prefetchQuery({
+    queryKey: reviewsQueryKey,
+    queryFn: async () => {
+      const response = await fetch(reviewsEndpoint);
+
+      return response.json();
+    },
+  });
+
+  void queryClient.prefetchQuery({
+    queryKey: watchProvidersQueryKey,
+    queryFn: async () => {
+      const response = await fetch(watchProvidersEndpoint);
+
+      return response.json();
+    },
+  });
+
+  void queryClient.prefetchQuery({
+    queryKey: similarQueryKey,
+    queryFn: async () => {
+      const response = await fetch(similarEndpoint);
+
+      return response.json();
+    },
+  });
+
   if (isList) {
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
@@ -77,10 +111,15 @@ export default async function DetailsAndListsPage({
     <HydrationBoundary state={dehydrate(queryClient)}>
       <MediaDetails
         type={type}
+        endpoint={endpoint}
         queryKey={queryKey}
         creditsQueryKey={creditsQueryKey}
-        endpoint={endpoint}
         creditsEndpoint={creditsEndpoint}
+        reviewsQueryKey={reviewsQueryKey}
+        similarQueryKey={similarQueryKey}
+        similarEndpoint={similarEndpoint}
+        watchProvidersQueryKey={watchProvidersQueryKey}
+        watchProvidersEndpoint={watchProvidersEndpoint}
       />
     </HydrationBoundary>
   );

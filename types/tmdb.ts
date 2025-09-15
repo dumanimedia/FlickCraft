@@ -104,6 +104,14 @@ export interface TMDBCredits {
   crew: TMDBCrew[];
 }
 
+export interface TMDBMediaReviews {
+  id: number;
+  page: number;
+  results: TMDBReview[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface TMDBCast {
   cast_id?: number;
   character: string;
@@ -115,6 +123,21 @@ export interface TMDBCast {
   profile_path: string | null;
 }
 
+export interface TMDBReview {
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string | null;
+    rating: number | null;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
+}
+
 export interface TMDBCrew {
   credit_id: string;
   department: string;
@@ -123,6 +146,28 @@ export interface TMDBCrew {
   job: string;
   name: string;
   profile_path: string | null;
+}
+
+export interface TMDBWatchProviders {
+  results: {
+    [country: string]: {
+      flatrate?: Array<{
+        provider_id: number;
+        provider_name: string;
+        logo_path: string;
+      }>;
+      rent?: Array<{
+        provider_id: number;
+        provider_name: string;
+        logo_path: string;
+      }>;
+      buy?: Array<{
+        provider_id: number;
+        provider_name: string;
+        logo_path: string;
+      }>;
+    };
+  };
 }
 
 // ─────────────────────────────
