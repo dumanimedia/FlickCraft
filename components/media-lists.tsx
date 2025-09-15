@@ -7,7 +7,7 @@ export default function MediaLists({
   queryKey,
 }: {
   endpoint: string;
-  queryKey: string[];
+  queryKey: (string | number)[];
 }) {
   const { data } = useSuspenseQuery({
     queryKey,

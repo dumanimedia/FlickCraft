@@ -39,7 +39,8 @@ export default async function DetailsAndListsPage({
     return notFound();
   }
 
-  const queryKey: string[] = [`${type}-${slug}`];
+  const queryKey: (string | number)[] = [`${type}-${slug}`];
+  const creditsQueryKey: (string | number)[] = ["media-cast", Number(slug)];
   const endpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}`;
   const creditsEndpoint: string = `${BASE_URL}/api/tmdb/${type}/${slug}/credits`;
 
@@ -56,7 +57,7 @@ export default async function DetailsAndListsPage({
 
   if (isDetail) {
     void queryClient.prefetchQuery({
-      queryKey: ["media-cast", Number(slug)],
+      queryKey: creditsQueryKey,
       queryFn: async () => {
         const response = await fetch(creditsEndpoint);
 
@@ -75,10 +76,11 @@ export default async function DetailsAndListsPage({
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <MediaDetails
-        creditsEndpoint={creditsEndpoint}
-        endpoint={endpoint}
-        queryKey={queryKey}
         type={type}
+        queryKey={queryKey}
+        creditsQueryKey={creditsQueryKey}
+        endpoint={endpoint}
+        creditsEndpoint={creditsEndpoint}
       />
     </HydrationBoundary>
   );
